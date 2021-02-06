@@ -10,16 +10,24 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:dogecoin-price-checker.helloWorld"
+    "onCommand:dogecoin-price-checker.checkPrice"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "dogecoin-price-checker.helloWorld",
-        "title": "Hello World"
+        "command": "dogecoin-price-checker.checkPrice",
+        "title": "Dogecoin: Check Price",
+        "icon": "resources/img/icon.png"
       }
-    ]
+    ],
+    "keybindings": [
+      {
+          "command": "dogecoin-price-checker.checkPrice",
+          "key": "ctrl+alt+p",
+          "mac": "ctrl+alt+p"
+      }
+  ]
   },
   "scripts": {
     "vscode:prepublish": "yarn run compile",
@@ -30,16 +38,19 @@
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
-    "@types/vscode": "^1.53.0",
     "@types/glob": "^7.1.3",
     "@types/mocha": "^8.0.4",
     "@types/node": "^12.11.7",
-    "eslint": "^7.19.0",
+    "@types/vscode": "^1.53.0",
     "@typescript-eslint/eslint-plugin": "^4.14.1",
     "@typescript-eslint/parser": "^4.14.1",
+    "eslint": "^7.19.0",
     "glob": "^7.1.6",
     "mocha": "^8.2.1",
     "typescript": "^4.1.3",
     "vscode-test": "^1.5.0"
+  },
+  "dependencies": {
+    "axios": "^0.21.1"
   }
 }
