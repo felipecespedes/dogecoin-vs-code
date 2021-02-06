@@ -1,7 +1,7 @@
 {
   "name": "dogecoin-price-checker",
   "displayName": "Dogecoin Price Checker",
-  "description": "Check Dogecoin price easily and see it going to the moon!",
+  "description": "Check Dogecoin price easily and see how it goes to the moon!",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.53.0"
