@@ -2,6 +2,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import axios from 'axios';
+import { SidebarProvider } from "./SidebarProvider";
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -9,12 +10,12 @@ export function activate(context: vscode.ExtensionContext) {
 
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "dogecoin-price-checker" is now active!');
+	console.log('Congratulations, your extension "dogecoin-vs-code" is now active!');
 
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
-  let checkPrice = vscode.commands.registerCommand('dogecoin-price-checker.checkPrice', async () => {
+  let checkPrice = vscode.commands.registerCommand('dogecoin-vs-code.checkPrice', async () => {
     try {
       const API_URL = 'https://sochain.com/api/v2/get_price/DOGE/USD';
       const response = await axios.get(API_URL);
@@ -40,6 +41,13 @@ export function activate(context: vscode.ExtensionContext) {
   });
 
   context.subscriptions.push(checkPrice);
+  const sidebarProvider = new SidebarProvider(context.extensionUri);
+  context.subscriptions.push(
+    vscode.window.registerWebviewViewProvider(
+      "dogecoin-vs-code-sidebar",
+      sidebarProvider
+    )
+  );
 }
 
 // this method is called when your extension is deactivated
@@ -53,11 +61,11 @@ function displayError(err: any) {
 
 function displayPrice(price: string) {
   // const buyOption = 'Buy Dogecoin in Binance';
-  // vscode.window.showInformationMessage(`Dogecoing price: $${price} USD`, buyOption).then(selection => {
+  // vscode.window.showInformationMessage(`Dogecoin price: $${price} USD`, buyOption).then(selection => {
   //   if (selection === buyOption) {
   //     vscode.env.openExternal(vscode.Uri.parse('https://www.binance.com/en/register?ref=GZOBAXCR'));
   //   }
   // });
 
-  vscode.window.showInformationMessage(`Dogecoing price: $${price} USD`);
+  vscode.window.showInformationMessage(`Dogecoin price: $${price} USD`);
 }

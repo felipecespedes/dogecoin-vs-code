@@ -1,8 +1,13 @@
 {
-  "name": "dogecoin-price-checker",
-  "displayName": "Dogecoin Price Checker",
+  "name": "dogecoin-vs-code",
+  "displayName": "Dogecoin for VS  Code",
   "description": "Check Dogecoin price easily and see how it goes to the moon!",
   "version": "0.0.1",
+  "publisher": "felipecespedes",
+  "author": {
+    "name": "Felipe Céspedes",
+    "url": "https://felipecespedes.github.io"
+  },
   "engines": {
     "vscode": "^1.53.0"
   },
@@ -10,20 +15,41 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:dogecoin-price-checker.checkPrice"
+    "onView:dogecoin-vs-code-sidebar",
+    "onCommand:dogecoin-vs-code.checkPrice"
   ],
   "main": "./out/extension.js",
   "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "dogecoin-vs-code-sidebar-view",
+          "title": "Dogecoin",
+          "icon": "media/dogecoin.svg"
+        }
+      ]
+    },
+    "views": {
+      "dogecoin-vs-code-sidebar-view": [
+        {
+          "type": "webview",
+          "id": "dogecoin-vs-code-sidebar",
+          "name": "Dogecoin",
+          "icon": "media/dogecoin.svg",
+          "contextualTitle": "Dogecoin"
+        }
+      ]
+    },
     "commands": [
       {
-        "command": "dogecoin-price-checker.checkPrice",
+        "command": "dogecoin-vs-code.checkPrice",
         "title": "Dogecoin: Check Price",
         "icon": "resources/img/icon.png"
       }
     ],
     "keybindings": [
       {
-          "command": "dogecoin-price-checker.checkPrice",
+          "command": "dogecoin-vs-code.checkPrice",
           "key": "ctrl+alt+p",
           "mac": "ctrl+alt+p"
       }
