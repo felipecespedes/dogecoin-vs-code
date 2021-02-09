@@ -2,6 +2,12 @@ import axios from 'axios';
 
 export class DogecoinService {
 
+  static priceModes = {
+    up: 'up',
+    down: 'down',
+    flat: 'flat'
+  };
+
   static async getPrice() {
     try {
       const API_URL = 'https://dogecoin-vs-code.s3.amazonaws.com/dogecoin.json';
@@ -28,6 +34,24 @@ export class DogecoinService {
     } catch (err) {
       return { error: err };
     }
+  }
+
+  static async getHistoricalData(): Promise<{ labels: string[], prices: number[] }> {
+    const labels: string[] = [];
+    const prices: number[] = [];
+    const response = await axios.get('https://dogecoin-vs-code.s3.amazonaws.com/historical.json');
+    const data = response.data.data;
+    Object.keys(data).forEach(key => {
+      const label = key.slice(0,10);
+      const price = data[key].USD[0];
+      labels.push(label);
+      prices.push(price);
+    });
+
+    return {
+      labels,
+      prices
+    };
   }
 
 }

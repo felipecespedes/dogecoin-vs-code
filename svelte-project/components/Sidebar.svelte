@@ -1,18 +1,22 @@
-<script>
+<script lang="typescript">
   import { onDestroy, onMount } from "svelte";
   import { DogecoinService } from "../services/DogecoinService";
+  import Chart from "chart.js";
+  import { isString } from "lodash";
 
-  let price;
-  let changeInPrice;
-  let changeInPercentage;
+  let price: any;
+  let changeInPrice: any;
+  let changeInPercentage: any;
+  let canvas: any;
   let hasError = false;
-  const APICallTimeout = 5 * 1000;
+  let priceMode = DogecoinService.priceModes.flat;
+  const APICallTimeout = 60 * 1000;
   const APICallInterval = setInterval(() => {
     updatePrice();
   }, APICallTimeout);
 
-  function updatePrice() {
-    DogecoinService.getPrice().then((result) => {
+  async function updatePrice() {
+    const result = await DogecoinService.getPrice();
       if (result.error) {
         console.error(result.error);
         hasError = true;
@@ -21,42 +25,160 @@
         changeInPrice = result.changeInPrice;
         changeInPercentage = result.changeInPercentage;
         hasError = false;
+        if (isString(changeInPrice)) {
+          if (changeInPrice.startsWith("+")) {
+            priceMode = DogecoinService.priceModes.up
+          } else if (changeInPrice.startsWith("-")) {
+            priceMode = DogecoinService.priceModes.down
+          } else {
+            priceMode = DogecoinService.priceModes.flat
+          }
+        }
       }
-    });
   }
 
-  onMount(() => {
-    updatePrice();
+  onMount(async () => {
+    await updatePrice();
+    await buildChart();
   });
 
   onDestroy(() => clearInterval(APICallInterval));
+
+  async function buildChart() {
+    // @ts-ignore
+    const ctx = canvas.getContext("2d");
+    const data = await buildChartData();
+    const dogecoinChart = new Chart(ctx, {
+      type: "line",
+      data,
+      options: {
+        legend: {
+          display: false,
+        },
+        title: {
+          display: false,
+        },
+        scales: {
+          xAxes: [
+            {
+              gridLines: {
+                display: false,
+              },
+              ticks: {
+                display: false,
+              },
+            },
+          ],
+          yAxes: [
+            {
+              gridLines: {
+                // display: false,
+              },
+            },
+          ],
+        },
+      },
+    });
+  }
+
+  async function buildChartData(): Promise<Chart.ChartData> {
+    const historicalData = await DogecoinService.getHistoricalData();
+    const data: Chart.ChartData = {
+      labels: historicalData.labels,
+      datasets: [
+        {
+          label: "Dogecoin in USD price",
+          data: historicalData.prices,
+          borderColor: "#3cba9f",
+          fill: false,
+          pointRadius: 1,
+          borderWidth: 2,
+        },
+      ],
+    };
+
+    return data;
+  }
 </script>
 
-<main>
-  <img
-    src="https://www.okchanger.com/cryptocurrency/preview-file/1712"
-    width="300"
-    alt="Dogecoin VS Code"
-    class="dogecoin__icon"
-  />
-  <h1>Dogecoin</h1>
-  {#if price != null}
-    <h2>$ {price}</h2>
-    {#if changeInPrice && changeInPercentage}
-      <h3>{changeInPrice} ({changeInPercentage}%)</h3>
-    {/if}
-  {:else if hasError}
-    <p>There was an error while loading the Dogecoin price</p>
-  {:else}
-    <p>Loading...</p>
-  {/if}
+<main class="dogecoin__main-container">
+  <div class="dogecoin__header">
+    <img
+      src="https://www.okchanger.com/cryptocurrency/preview-file/1712"
+      width="300"
+      alt="Dogecoin VS Code"
+      class="dogecoin__icon"
+    />
+    <h1 class="dogecoin__name">Dogecoin</h1>
+  </div>
+  <div class="dogecoin__detail">
+    <div class="dogecoin__price">
+      {#if price != null}
+        <h2 class={`dogecoin__${priceMode}`}>$ {price}</h2>
+      {:else if hasError}
+        <p>There was an error while loading the Dogecoin price</p>
+      {:else}
+        <p>Loading...</p>
+      {/if}
+    </div>
+    <div class="dogecoin__price-change">
+      {#if changeInPrice && changeInPercentage}
+        <h3 class={`dogecoin__${priceMode}`}>{changeInPrice} ({changeInPercentage}%)</h3>
+      {/if}
+    </div>
+  </div>
+  <div class="dogecoin__chart-container">
+    <canvas bind:this={canvas} width="400" height="200" />
+  </div>
 </main>
 
 <style>
-  .dogecoin__icon {
+  .dogecoin__main-container {
+    max-width: 500px;
+    width: 100%;
     margin: 0 auto;
-    display: block;
-    width: 80px;
-    height: 80px;
+    padding: 15px 0;
+  }
+
+  .dogecoin__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .dogecoin__icon {
+    width: 35px;
+    height: 35px;
+  }
+
+  .dogecoin__name {
+    margin: 0 0 0 10px;
+    font-size: medium;
+  }
+  .dogecoin__detail {
+  }
+
+  .dogecoin__price {
+    margin-top: 10px;
+    text-align: center;
+    font-size: large;
+  }
+
+  .dogecoin__price-change {
+    margin-top: 10px;
+    text-align: center;
+    font-size: medium;
+  }
+
+  .dogecoin__chart-container {
+    margin-top: 30px;
+  }
+
+  .dogecoin__up {
+    color: green;
+  }
+
+  .dogecoin__down {
+    color: crimson;
   }
 </style>

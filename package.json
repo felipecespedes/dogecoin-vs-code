@@ -67,7 +67,7 @@
     "vscode:prepublish": "yarn run compile",
     "compile": "tsc -p ./ && rollup -c",
     "compile-svelte": "rollup -c",
-    "watch": "concurrently \"tsc -watch -p ./\" \"rollup -c -w\"",
+    "watch": "tsc -watch -p ./",
     "watch-svelte": "rollup -c -w",
     "pretest": "yarn run compile && yarn run lint",
     "lint": "eslint src --ext ts",
@@ -100,6 +100,10 @@
     "vscode-test": "^1.5.0"
   },
   "dependencies": {
-    "axios": "^0.21.1"
+    "@types/chart.js": "^2.9.30",
+    "@types/lodash": "^4.14.168",
+    "axios": "^0.21.1",
+    "chart.js": "^2.9.4",
+    "lodash": "^4.17.20"
   }
 }
