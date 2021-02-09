@@ -3,18 +3,19 @@
 import * as vscode from 'vscode';
 import axios from 'axios';
 import { SidebarProvider } from "./SidebarProvider";
+// import { DogecoinViewProvider } from './DogecoinViewProvider';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "dogecoin-vs-code" is now active!');
+  // Use the console to output diagnostic information (console.log) and errors (console.error)
+  // This line of code will only be executed once when your extension is activated
+  console.log('Congratulations, your extension "dogecoin-vs-code" is now active!');
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
+  // The command has been defined in the package.json file
+  // Now provide the implementation of the command with registerCommand
+  // The commandId parameter must match the command field in package.json
   let checkPrice = vscode.commands.registerCommand('dogecoin-vs-code.checkPrice', async () => {
     try {
       const API_URL = 'https://sochain.com/api/v2/get_price/DOGE/USD';
@@ -41,17 +42,49 @@ export function activate(context: vscode.ExtensionContext) {
   });
 
   context.subscriptions.push(checkPrice);
+
+  // Sidebar
   const sidebarProvider = new SidebarProvider(context.extensionUri);
   context.subscriptions.push(
     vscode.window.registerWebviewViewProvider(
-      "dogecoin-vs-code-sidebar",
+      SidebarProvider.viewType,
       sidebarProvider
     )
   );
+
+  // Webview
+  // const provider = new DogecoinViewProvider(context.extensionUri);
+
+  // context.subscriptions.push(
+  //   vscode.window.registerWebviewViewProvider(DogecoinViewProvider.viewType, sidebarProvider));
+
+  // context.subscriptions.push(
+  //   vscode.commands.registerCommand('calicoColors.addColor', () => {
+  //     provider.addColor();
+  //   }));
+
+  // context.subscriptions.push(
+  //   vscode.commands.registerCommand('calicoColors.clearColors', () => {
+  //     provider.clearColors();
+  //   }));
+
+
+  // const dogecoinView = vscode.commands.registerCommand('dogecoin-vs-code.start', () => {
+  //   const panel = vscode.window.createWebviewPanel(
+  //     'dogecoin-vs-code',
+  //     'Dogecoin',
+  //     vscode.ViewColumn.One,
+  //     {}
+  //   );
+
+  //   // And set its HTML content
+  //   panel.webview.html = getWebviewContent();
+  // });
+  // context.subscriptions.push(dogecoinView);
 }
 
 // this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }
 
 // Custom functions
 function displayError(err: any) {
@@ -68,4 +101,19 @@ function displayPrice(price: string) {
   // });
 
   vscode.window.showInformationMessage(`Dogecoin price: $${price} USD`);
+}
+
+
+function getWebviewContent() {
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat Coding</title>
+</head>
+<body>
+    <img src="https://www.okchanger.com/cryptocurrency/preview-file/1712" width="300" />
+</body>
+</html>`;
 }
