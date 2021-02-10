@@ -19,6 +19,7 @@
   let error: string | null = null;
   let wallets: Wallet[] = [];
   let newWalletAddress = "";
+  const maxWallets = 3;
 
   onMount(() => {
     window.addEventListener("message", onWindowMessage);
@@ -32,6 +33,10 @@
   });
 
   async function addWallet() {
+    if (wallets.length >= maxWallets) {
+      return;
+    }
+
     isLoading = true;
     const isAlreadyAdded = wallets.find((o) => o.address === newWalletAddress);
     if (!isAlreadyAdded) {
@@ -109,7 +114,7 @@
 </script>
 
 <div class="wallets">
-  {#if !isAddingWallet}
+  {#if !isAddingWallet && wallets.length < maxWallets}
     <div class="wallets__add-button-container">
       <button
         on:click={startFlowToAddWalletAddress}
