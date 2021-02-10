@@ -115,7 +115,6 @@
   async function updateChart() {
     if (dogecoinChart != null) {
       const data = await buildChartData();
-      console.log("here");
       dogecoinChart.data = data;
       dogecoinChart.update({ duration: 0 });
     }
