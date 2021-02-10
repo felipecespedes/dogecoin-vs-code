@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { BigNumber } from "bignumber.js";
+import dayjs from 'dayjs';
 
 export class DogecoinService {
 
@@ -36,22 +37,28 @@ export class DogecoinService {
     const response = await axios.get('https://dogecoin-vs-code.s3.amazonaws.com/historical.json');
     const data = response.data.data;
     Object.keys(data).forEach(key => {
-      const label = key.slice(0, 10);
+      const label = dayjs(key.slice(0, 10)).format('MMM DD YYYY');
       const price = data[key].USD[0];
       labels.push(label);
       prices.push(price);
     });
 
     return {
-      labels,
-      prices
+      labels: labels.slice(-30),
+      prices: prices.slice(-30)
     };
   }
 
   static async getAddressBalance(address: string): Promise<string> {
-    const response = await axios.get(`https://sochain.com/api/v2/get_address_balance/DOGE/${address}`);
-    const data = response.data?.data || {};
-    const balance = data.confirmed_balance || "0";
+    let balance = "0";
+    try {
+      const response = await axios.get(`https://sochain.com/api/v2/get_address_balance/DOGE/${address}`);
+      const data = response.data?.data || {};
+      balance = data.confirmed_balance || "0";
+    } catch (err) {
+      console.error(err);
+      balance = "0";
+    }
 
     return balance;
   }

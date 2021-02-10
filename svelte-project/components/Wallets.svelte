@@ -19,6 +19,7 @@
   let error: string | null = null;
   let wallets: Wallet[] = [];
   let newWalletAddress = "";
+  let hasInitializedWallets = false
   const maxWallets = 3;
 
   onMount(() => {
@@ -83,6 +84,7 @@
       });
     }
     wallets = [...newWallets];
+    hasInitializedWallets = true
   }
 
   function onWindowMessage(event: any) {
@@ -108,13 +110,13 @@
     wallets = [...newWallets];
     tsvscode.postMessage({
       type: "update-wallet-addresses",
-      walletAddresses: newWallets,
+      walletAddresses: newWallets.map(o => o.address),
     });
   }
 </script>
 
 <div class="wallets">
-  {#if !isAddingWallet && wallets.length < maxWallets}
+  {#if !isAddingWallet && wallets.length < maxWallets && hasInitializedWallets}
     <div class="wallets__add-button-container">
       <button
         on:click={startFlowToAddWalletAddress}

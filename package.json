@@ -101,6 +101,7 @@
     "axios": "^0.21.1",
     "bignumber.js": "^9.0.1",
     "chart.js": "^2.9.4",
+    "dayjs": "^1.10.4",
     "lodash": "^4.17.20",
     "svelte-fa": "^2.2.0"
   }

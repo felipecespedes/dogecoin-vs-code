@@ -3,6 +3,7 @@
   import { DogecoinService } from "../services/DogecoinService";
   import Chart from "chart.js";
   import { isString } from "lodash";
+  import dayjs from "dayjs";
   import Wallets from "./Wallets.svelte";
 
   let price: any;
@@ -11,9 +12,13 @@
   let canvas: any;
   let hasError = false;
   let priceMode = DogecoinService.priceModes.flat;
+  let dogecoinChart: Chart;
+
   const APICallTimeout = 60 * 1000;
-  const APICallInterval = setInterval(() => {
-    updatePrice();
+
+  const APICallInterval = setInterval(async () => {
+    await updatePrice();
+    await updateChart();
   }, APICallTimeout);
 
   async function updatePrice() {
@@ -43,13 +48,15 @@
     await buildChart();
   });
 
-  onDestroy(() => clearInterval(APICallInterval));
+  onDestroy(() => {
+    clearInterval(APICallInterval);
+  });
 
   async function buildChart() {
     // @ts-ignore
     const ctx = canvas.getContext("2d");
     const data = await buildChartData();
-    const dogecoinChart = new Chart(ctx, {
+    dogecoinChart = new Chart(ctx, {
       type: "line",
       data,
       options: {
@@ -80,27 +87,38 @@
         },
       },
     });
-
-    // TODO update chart after price changes
   }
 
   async function buildChartData(): Promise<Chart.ChartData> {
     const historicalData = await DogecoinService.getHistoricalData();
+    let color = "#43a047";
+    if (isString(changeInPrice) && changeInPrice.startsWith("-")) {
+      color = "#e53935";
+    }
     const data: Chart.ChartData = {
-      labels: historicalData.labels,
+      labels: [...historicalData.labels, dayjs().format("MMM DD YYYY")],
       datasets: [
         {
           label: "$",
-          data: historicalData.prices,
-          borderColor: "#43a047", // TODO
+          data: [...historicalData.prices, +price],
+          borderColor: color,
           fill: false,
-          pointRadius: 1,
+          pointRadius: 2,
           borderWidth: 2,
         },
       ],
     };
 
     return data;
+  }
+
+  async function updateChart() {
+    if (dogecoinChart != null) {
+      const data = await buildChartData();
+      console.log("here");
+      dogecoinChart.data = data;
+      dogecoinChart.update({ duration: 0 });
+    }
   }
 </script>
 
