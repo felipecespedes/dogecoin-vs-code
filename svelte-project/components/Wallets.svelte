@@ -126,6 +126,7 @@
         placeholder="Enter wallet address"
         class="wallets__address-input"
         bind:value={newWalletAddress}
+        on:keypress={e => e.key === 'Enter' && addWallet()}
         use:requireFocus
       />
       {#if error !== null}
@@ -194,7 +195,7 @@
   }
 
   .wallet__error {
-    color: crimson;
+    color: #e53935;
     margin-bottom: 5px;
   }
 

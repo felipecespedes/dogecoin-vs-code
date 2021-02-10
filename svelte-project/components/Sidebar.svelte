@@ -80,6 +80,8 @@
         },
       },
     });
+
+    // TODO update chart after price changes
   }
 
   async function buildChartData(): Promise<Chart.ChartData> {
@@ -90,7 +92,7 @@
         {
           label: "$",
           data: historicalData.prices,
-          borderColor: "#3cba9f",
+          borderColor: "#43a047", // TODO
           fill: false,
           pointRadius: 1,
           borderWidth: 2,
@@ -134,7 +136,7 @@
     <canvas bind:this={canvas} width="400" height="200" />
   </div>
 
-  <Wallets price={price} />
+  <Wallets {price} />
 </main>
 
 <style>
@@ -180,10 +182,10 @@
   }
 
   .dogecoin__up {
-    color: green;
+    color: #43a047;
   }
 
   .dogecoin__down {
-    color: crimson;
+    color: #e53935;
   }
 </style>
