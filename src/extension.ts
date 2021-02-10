@@ -4,7 +4,10 @@ import * as vscode from 'vscode';
 import axios from 'axios';
 import { SidebarProvider } from "./SidebarProvider";
 import { LocalStorageService } from './LocalStorageService';
+import { DogecoinService } from './DogecoinService';
 // import { DogecoinViewProvider } from './DogecoinViewProvider';
+
+let updatePriceInteval: NodeJS.Timeout;
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -87,10 +90,28 @@ export function activate(context: vscode.ExtensionContext) {
 
   // Storage
   // let storageManager = new LocalStorageService(context.globalState);
+
+  // Status Bar
+  // const statusBarItemCommand = 'dogecoin-vs-code.statusBarItem';
+  const refreshPriceIntevalTime = 60 * 1000;
+  const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 1);
+  // statusBarItem.command = statusBarItemCommand;
+  updateStatusBarItem(statusBarItem);
+  updatePriceInteval = setInterval(() => {
+    updateStatusBarItem(statusBarItem);
+  }, refreshPriceIntevalTime);
+
+  // context.subscriptions.push(
+  //   vscode.commands.registerCommand(statusBarItemCommand, () => {
+  //     updateStatusBarItem(statusBarItem);
+  //   })
+  // );
 }
 
 // this method is called when your extension is deactivated
-export function deactivate() { }
+export function deactivate() {
+  clearInterval(updatePriceInteval);
+}
 
 // Custom functions
 function displayError(err: any) {
@@ -122,4 +143,14 @@ function getWebviewContent() {
     <img src="https://www.okchanger.com/cryptocurrency/preview-file/1712" width="300" />
 </body>
 </html>`;
+}
+
+function updateStatusBarItem(statusBarItem: vscode.StatusBarItem) {
+  DogecoinService.getPrice().then(response => {
+    if (!response.error) {
+      statusBarItem.text = `DOGE: $ ${response.price} (${response.changeInPercentage}%)`;
+      statusBarItem.color = response.changeInPercentage.startsWith('+') ? '#43a047' : '#e53935';
+      statusBarItem.show();
+    }
+  });
 }

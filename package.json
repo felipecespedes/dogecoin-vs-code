@@ -17,7 +17,7 @@
   "activationEvents": [
     "onView:dogecoin-vs-code.sidebarView",
     "onCommand:dogecoin-vs-code.checkPrice",
-    "onCommand:dogecoin-vs-code.start"
+    "onStartupFinished"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -45,12 +45,6 @@
       {
         "command": "dogecoin-vs-code.checkPrice",
         "title": "Check Price",
-        "icon": "resources/img/icon.png",
-        "category": "Dogecoin"
-      },
-      {
-        "command": "dogecoin-vs-code.start",
-        "title": "Check Dogecoin",
         "icon": "resources/img/icon.png",
         "category": "Dogecoin"
       }
