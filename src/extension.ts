@@ -106,7 +106,7 @@ function displayPrice(price: string) {
   //   }
   // });
 
-  vscode.window.showInformationMessage(`Dogecoin price: $${price} USD`);
+  vscode.window.showInformationMessage(`DOGE: $ ${price}`);
 }
 
 
