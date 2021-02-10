@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import { getNonce } from './getNonce';
+import { LocalStorageService } from './LocalStorageService';
 
 export class SidebarProvider implements vscode.WebviewViewProvider {
 
@@ -16,6 +17,27 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
       localResourceRoots: [this._extensionUri],
     };
     webviewView.webview.html = this.getHmlForWebview(webviewView.webview);
+
+    // Event Messages
+    webviewView.webview.onDidReceiveMessage(async data => {
+      switch (data.type) {
+        case 'get-stored-wallet-addresses':
+          const walletAddresses = LocalStorageService.getWalletAddresses();
+          webviewView.webview.postMessage({
+            command: 'return-wallet-addresses',
+            payload: {
+              walletAddresses
+            }
+          });
+          break;
+        case 'update-wallet-addresses':
+          console.log(data);
+          LocalStorageService.updateWalletAddresses(data.walletAddresses);
+          break;
+        default:
+          break;
+      }
+    });
   }
 
   private getHmlForWebview(webview: vscode.Webview) {
@@ -39,15 +61,18 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
     return `<!DOCTYPE html>
       <html lang="en">
       <head>
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Cat Coding</title>
-          <link href="${styleResetUri}" rel="stylesheet">
-				  <link href="${styleVSCodeUri}" rel="stylesheet">
-          <link href="${styleMainUri}" rel="stylesheet">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cat Coding</title>
+        <link href="${styleResetUri}" rel="stylesheet">
+        <link href="${styleVSCodeUri}" rel="stylesheet">
+        <link href="${styleMainUri}" rel="stylesheet">
       </head>
       <body>
-          <script nonce="${nonce}" src="${scriptUri}"></script>
+        <script nonce="${nonce}">
+          const tsvscode = acquireVsCodeApi();
+        </script>
+        <script nonce="${nonce}" src="${scriptUri}"></script>
       </body>
       </html>`;
   }

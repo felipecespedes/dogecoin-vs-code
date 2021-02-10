@@ -54,4 +54,20 @@ export class DogecoinService {
     };
   }
 
+  static async getAddressBalance(address: string) {
+    const response = await axios.get(`https://sochain.com/api/v2/get_address_balance/DOGE/${address}`);
+    const data = response.data?.data || {};
+    const balance = data.confirmed_balance || "0";
+
+    return balance;
+  }
+
+  static async isValidAddress(address: string) {
+    const response = await axios.get(`https://sochain.com/api/v2/is_address_valid/DOGE/${address}`);
+    const data = response.data?.data || {};
+    const balance = data.is_valid || false;
+
+    return balance;
+  }
+
 }

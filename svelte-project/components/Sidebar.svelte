@@ -3,6 +3,7 @@
   import { DogecoinService } from "../services/DogecoinService";
   import Chart from "chart.js";
   import { isString } from "lodash";
+  import Wallets from "./Wallets.svelte";
 
   let price: any;
   let changeInPrice: any;
@@ -17,24 +18,24 @@
 
   async function updatePrice() {
     const result = await DogecoinService.getPrice();
-      if (result.error) {
-        console.error(result.error);
-        hasError = true;
-      } else if (result.price != null) {
-        price = result.price;
-        changeInPrice = result.changeInPrice;
-        changeInPercentage = result.changeInPercentage;
-        hasError = false;
-        if (isString(changeInPrice)) {
-          if (changeInPrice.startsWith("+")) {
-            priceMode = DogecoinService.priceModes.up
-          } else if (changeInPrice.startsWith("-")) {
-            priceMode = DogecoinService.priceModes.down
-          } else {
-            priceMode = DogecoinService.priceModes.flat
-          }
+    if (result.error) {
+      console.error(result.error);
+      hasError = true;
+    } else if (result.price != null) {
+      price = result.price;
+      changeInPrice = result.changeInPrice;
+      changeInPercentage = result.changeInPercentage;
+      hasError = false;
+      if (isString(changeInPrice)) {
+        if (changeInPrice.startsWith("+")) {
+          priceMode = DogecoinService.priceModes.up;
+        } else if (changeInPrice.startsWith("-")) {
+          priceMode = DogecoinService.priceModes.down;
+        } else {
+          priceMode = DogecoinService.priceModes.flat;
         }
       }
+    }
   }
 
   onMount(async () => {
@@ -87,7 +88,7 @@
       labels: historicalData.labels,
       datasets: [
         {
-          label: "Dogecoin in USD price",
+          label: "$",
           data: historicalData.prices,
           borderColor: "#3cba9f",
           fill: false,
@@ -123,13 +124,17 @@
     </div>
     <div class="dogecoin__price-change">
       {#if changeInPrice && changeInPercentage}
-        <h3 class={`dogecoin__${priceMode}`}>{changeInPrice} ({changeInPercentage}%)</h3>
+        <h3 class={`dogecoin__${priceMode}`}>
+          {changeInPrice} ({changeInPercentage}%)
+        </h3>
       {/if}
     </div>
   </div>
   <div class="dogecoin__chart-container">
     <canvas bind:this={canvas} width="400" height="200" />
   </div>
+
+  <Wallets />
 </main>
 
 <style>

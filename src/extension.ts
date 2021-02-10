@@ -3,6 +3,7 @@
 import * as vscode from 'vscode';
 import axios from 'axios';
 import { SidebarProvider } from "./SidebarProvider";
+import { LocalStorageService } from './LocalStorageService';
 // import { DogecoinViewProvider } from './DogecoinViewProvider';
 
 // this method is called when your extension is activated
@@ -12,6 +13,8 @@ export function activate(context: vscode.ExtensionContext) {
   // Use the console to output diagnostic information (console.log) and errors (console.error)
   // This line of code will only be executed once when your extension is activated
   console.log('Congratulations, your extension "dogecoin-vs-code" is now active!');
+
+  LocalStorageService.globalState = context.globalState;
 
   // The command has been defined in the package.json file
   // Now provide the implementation of the command with registerCommand
@@ -81,6 +84,9 @@ export function activate(context: vscode.ExtensionContext) {
   //   panel.webview.html = getWebviewContent();
   // });
   // context.subscriptions.push(dogecoinView);
+
+  // Storage
+  // let storageManager = new LocalStorageService(context.globalState);
 }
 
 // this method is called when your extension is deactivated
