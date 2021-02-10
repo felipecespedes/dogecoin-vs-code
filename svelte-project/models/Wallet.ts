@@ -1,4 +1,4 @@
 export interface Wallet {
   address: string
-  balance: number | null
+  balance: string | null
 }

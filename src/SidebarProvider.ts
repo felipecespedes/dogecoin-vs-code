@@ -31,7 +31,6 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
           });
           break;
         case 'update-wallet-addresses':
-          console.log(data);
           LocalStorageService.updateWalletAddresses(data.walletAddresses);
           break;
         default:

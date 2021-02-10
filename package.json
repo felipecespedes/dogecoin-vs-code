@@ -100,10 +100,14 @@
     "vscode-test": "^1.5.0"
   },
   "dependencies": {
+    "@fortawesome/free-solid-svg-icons": "^5.15.2",
+    "@types/bignumber.js": "^5.0.0",
     "@types/chart.js": "^2.9.30",
     "@types/lodash": "^4.14.168",
     "axios": "^0.21.1",
+    "bignumber.js": "^9.0.1",
     "chart.js": "^2.9.4",
-    "lodash": "^4.17.20"
+    "lodash": "^4.17.20",
+    "svelte-fa": "^2.2.0"
   }
 }

@@ -134,7 +134,7 @@
     <canvas bind:this={canvas} width="400" height="200" />
   </div>
 
-  <Wallets />
+  <Wallets price={price} />
 </main>
 
 <style>
