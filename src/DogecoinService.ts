@@ -4,7 +4,7 @@ export class DogecoinService {
 
   static async getPrice() {
     try {
-      const API_URL = 'https://dogecoin-vs-code.s3.amazonaws.com/dogecoin.json';
+      const API_URL = 'https://www.dogecoinextension.xyz/api/v1/DOGE/price';
       const response = await axios.get(API_URL);
       if (response.status === 200) {
         const price = response.data.price;
