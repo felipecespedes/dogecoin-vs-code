@@ -10,6 +10,12 @@ Check Dogecoin price easily and see how it goes to the moon 🚀
   - Add and monitor the balance of Dogecoin wallet addresses. You can add up to 3 wallet addresses
 - Displays the Dogecoin price and its percentage of change in the last 24 hours in the status bar
 
+## Installation
+
+Dogecoin for VS Code can be installed from the [Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=felipecespedes.dogecoin-vs-code) or by [searching within VS Code](https://code.visualstudio.com/docs/editor/extension-gallery#_search-for-an-extension)
+
+![installation](https://raw.githubusercontent.com/felipecespedes/dogecoin-vs-code/main/images/installation.gif)
+
 ## Authors
 - [Felipe Céspedes](https://felipecespedes.github.io/)
 
