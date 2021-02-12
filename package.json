@@ -18,6 +18,7 @@
   "categories": [
     "Other"
   ],
+  "icon": "images/dogecoin-vs-code-icon.png",
   "activationEvents": [
     "onView:dogecoin-vs-code.sidebarView",
     "onStartupFinished"
