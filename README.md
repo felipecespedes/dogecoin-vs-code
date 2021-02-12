@@ -8,9 +8,9 @@ Check Dogecoin price easily and see how it goes to the moon!
 ## Features
 - Adds an item on the activity bar where you can see:
   - Dogecoin price and its change in the last 24 hours
-  - Fluctuation over the last 30 days
+  - Price changes over the last 30 days
   - Add and monitor the balance of Dogecoin wallet addresses. You can add up to 3 wallet addresses
-- Adds an item on the status bar displaying the Dogecoin price and its percentage of change in the last 24 hours
+- Displays the Dogecoin price and its percentage of change in the last 24 hours in the status bar
 
 ## Authors
 - [Felipe Céspedes](https://felipecespedes.github.io/)
