@@ -1,7 +1,7 @@
 # Dogecoin for [VS  Code](https://code.visualstudio.com/)
-Check Dogecoin price easily and see how it goes to the moon :rocket:
+Check Dogecoin price easily and see how it goes to the moon 🚀
 
-![dogecoin-vs-code](images/dogecoin-vs-code.png)
+![dogecoin-vs-code](https://raw.githubusercontent.com/felipecespedes/dogecoin-vs-code/main/images/dogecoin-vs-code.png)
 
 ## Features
 - Adds an item on the activity bar where you can see:

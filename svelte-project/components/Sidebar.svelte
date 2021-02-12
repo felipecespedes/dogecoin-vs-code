@@ -124,7 +124,7 @@
 <main class="dogecoin__main-container">
   <div class="dogecoin__header">
     <img
-      src="https://github.com/felipecespedes/dogecoin-vs-code/blob/main/images/dogecoin.png"
+      src="https://raw.githubusercontent.com/felipecespedes/dogecoin-vs-code/main/images/dogecoin.png"
       width="300"
       alt="Dogecoin VS Code"
       class="dogecoin__icon"
