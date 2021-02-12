@@ -4,6 +4,7 @@
   "description": "Check Dogecoin price easily and see how it goes to the moon!",
   "version": "0.0.1",
   "publisher": "felipecespedes",
+  "license": "MIT",
   "author": {
     "name": "Felipe Céspedes",
     "url": "https://felipecespedes.github.io"
