@@ -31,3 +31,7 @@ If you find this project useful please consider making a donation
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/felipecespedes/dogecoin-vs-code/blob/main/LICENSE) file for details
+
+## Contributing
+
+Please see the [Contributing Guidelines](https://github.com/felipecespedes/dogecoin-vs-code/blob/main/CONTRIBUTING.md)
