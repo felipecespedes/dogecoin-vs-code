@@ -13,7 +13,7 @@ Check Dogecoin price easily and see how it goes to the moon!
 - Adds an item on the status bar displaying the Dogecoin price and its percentage of change in the last 24 hours
 
 ## Authors
-- [Felipe Céspedes](https://github.com/felipecespedes)
+- [Felipe Céspedes](https://felipecespedes.github.io/)
 
 ## Supporting Dogecoin for VS Code
 
