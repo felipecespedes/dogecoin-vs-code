@@ -1,5 +1,5 @@
 # Dogecoin for [VS  Code](https://code.visualstudio.com/)
-Check Dogecoin price easily and see how it goes to the moon!
+Check Dogecoin price easily and see how it goes to the moon :rocket:
 
 <p align="center" >
   <img alt="Dogecoin for VS Code" src="https://github.com/felipecespedes/dogecoin-vs-code/blob/main/screenshots/dogecoin-vs-code.png" height="800" />
