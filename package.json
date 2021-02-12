@@ -17,7 +17,6 @@
   ],
   "activationEvents": [
     "onView:dogecoin-vs-code.sidebarView",
-    "onCommand:dogecoin-vs-code.checkPrice",
     "onStartupFinished"
   ],
   "main": "./out/extension.js",
@@ -42,21 +41,8 @@
         }
       ]
     },
-    "commands": [
-      {
-        "command": "dogecoin-vs-code.checkPrice",
-        "title": "Check Price",
-        "icon": "resources/img/icon.png",
-        "category": "Dogecoin"
-      }
-    ],
-    "keybindings": [
-      {
-        "command": "dogecoin-vs-code.checkPrice",
-        "key": "ctrl+alt+p",
-        "mac": "ctrl+alt+p"
-      }
-    ]
+    "commands": [],
+    "keybindings": []
   },
   "scripts": {
     "vscode:prepublish": "yarn run compile",
