@@ -39,3 +39,7 @@ This project is licensed under the MIT License - see the [LICENSE](https://githu
 ## Contributing
 
 Please see the [Contributing Guidelines](https://github.com/felipecespedes/dogecoin-vs-code/blob/main/CONTRIBUTING.md)
+
+## Release notes
+
+For full release notes, see [the changelog](https://github.com/felipecespedes/dogecoin-vs-code/blob/main/CHANGELOG.md)
