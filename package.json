@@ -5,6 +5,9 @@
   "version": "0.0.1",
   "publisher": "felipecespedes",
   "license": "MIT",
+  "repository": {
+    "url": "https://github.com/felipecespedes/dogecoin-vs-code"
+  },
   "author": {
     "name": "Felipe Céspedes",
     "url": "https://felipecespedes.github.io"
