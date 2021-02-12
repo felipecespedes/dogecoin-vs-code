@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { BigNumber } from "bignumber.js";
 import dayjs from 'dayjs';
+import { ENV } from '../env/env';
 
 export class DogecoinService {
 
@@ -13,7 +14,12 @@ export class DogecoinService {
   static async getPrice() {
     try {
       const API_URL = 'https://www.dogecoinextension.xyz/api/v1/DOGE/price';
-      const response = await axios.get(API_URL);
+      const response = await axios.get(API_URL, {
+        headers: {
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          'X-API-Key': ENV.apiKey
+        }
+      });
       if (response.status === 200) {
         const price = response.data.price;
         const changeInPrice = response.data.changeInPrice;
@@ -34,7 +40,12 @@ export class DogecoinService {
   static async getHistoricalData(): Promise<{ labels: string[], prices: number[] }> {
     const labels: string[] = [];
     const prices: number[] = [];
-    const response = await axios.get('https://www.dogecoinextension.xyz/api/v1/DOGE/historical');
+    const response = await axios.get('https://www.dogecoinextension.xyz/api/v1/DOGE/historical', {
+      headers: {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        'X-API-Key': ENV.apiKey
+      }
+    });
     const data = response.data.data;
     Object.keys(data).forEach(key => {
       const label = dayjs(key.slice(0, 10)).format('MMM DD YYYY');
