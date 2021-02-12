@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [Unreleased]
 
 
+### [0.0.4] 2021-02-12
+
+- Adds installation section to the Readme file
+
 ### [0.0.3] 2021-02-12
 
 - Fixes missing icons
