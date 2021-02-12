@@ -26,7 +26,7 @@ If you find this project useful please consider making a donation
 <a href="https://www.buymeacoffee.com/felipecespedes" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/lato-red.png" alt="Buy Me A Coffee" height="41" width="174"></a>
 
 ## Links
-- [Web site](https://www.dogecoinextension.xyz/)
+- [Dogecoin VS Code - Web site](https://www.dogecoinextension.xyz/)
 - [GitHub](https://github.com/felipecespedes/dogecoin-vs-code)
 ## License
 
