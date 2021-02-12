@@ -2,7 +2,7 @@
 Check Dogecoin price easily and see how it goes to the moon!
 
 <p align="center" >
-  <img alt="Dogecoin for VS Code" src="https://github.com/felipecespedes/dogecoin-vs-code/blob/main/screenshots/dogecoin-vs-code.png" height="600" />
+  <img alt="Dogecoin for VS Code" src="https://github.com/felipecespedes/dogecoin-vs-code/blob/main/screenshots/dogecoin-vs-code.png" height="800" />
 </p>
 
 ## Features
