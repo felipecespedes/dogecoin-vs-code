@@ -1,7 +1,9 @@
 # Dogecoin for [VS  Code](https://code.visualstudio.com/)
 Check Dogecoin price easily and see how it goes to the moon!
 
-## Image
+<p align="center" >
+  <img alt="Dogecoin for VS Code" src="https://github.com/felipecespedes/dogecoin-vs-code/blob/main/screenshots/dogecoin-vs-code.png" height="600" />
+</p>
 
 ## Features
 - Adds an item on the activity bar where you can see:
