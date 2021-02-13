@@ -27,6 +27,8 @@ If you find this project useful please consider making a donation
 
 **BTC:** `18UUyFJFdNQHBN8ZK4XheEaTUCzBaQtZH6`
 
+**ETH:** `0xb80f6bd35b5bb152f1ee867b63160b49f299edd1`
+
 <a href="https://www.buymeacoffee.com/felipecespedes" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/lato-red.png" alt="Buy Me A Coffee" height="41" width="174"></a>
 
 ## Links
